@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>feez! — Playbook de Ativação · 7 Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo: #1E2612;
+    --indigo-soft: #2a3419;
+    --terracota: #C4704A;
+    --terracota-light: #e89570;
+    --beige: #F5F1E8;
+    --white: #FFFFFF;
+    --black: #0A0A0A;
+    --slate: #6B6B6B;
+    --line: rgba(0,0,0,0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    color: var(--black);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Topbar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem 0;
+  }
+  .topbar .container { max-width: 100%; padding: 0 2.5rem; }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .logo img { height: 72px; width: auto; display: block; }
+  footer .logo img { height: 72px; filter: brightness(0) invert(1); }
+  .topbar-tag { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); }
+  @media (max-width: 768px) {
+    .topbar .container { padding: 0 1.25rem; }
+    .logo img { height: 52px; }
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 80vh;
+    display: flex; align-items: center;
+    background: linear-gradient(180deg, var(--beige) 0%, #fafaf7 100%);
+    position: relative; overflow: hidden;
+    padding: 6rem 0 4rem;
+  }
+  .hero::before, .hero::after {
+    content: ''; position: absolute;
+    border-radius: 50%; filter: blur(80px); pointer-events: none;
+  }
+  .hero::before {
+    top: 5%; right: -8%;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(196,112,74,0.35) 0%, transparent 65%);
+    animation: blobFloat 18s ease-in-out infinite;
+  }
+  .hero::after {
+    bottom: -15%; left: -10%;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(30,38,18,0.18) 0%, transparent 65%);
+    animation: blobFloat 22s ease-in-out infinite reverse;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--terracota);
+  }
+  .hero h1 {
+    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    color: var(--indigo);
+    margin-bottom: 2rem;
+  }
+  .hero h1 em {
+    font-style: normal; font-weight: 800;
+    background: linear-gradient(110deg, var(--terracota) 0%, var(--terracota-light) 50%, var(--terracota) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
+  }
+  .hero-sub {
+    font-size: 1.25rem;
+    color: var(--slate);
+    max-width: 680px;
+    margin-bottom: 3rem;
+  }
+  .hero-promises {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .hero-promises div strong {
+    display: block;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--indigo);
+  }
+  .hero-promises div span { font-size: 0.8rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* Sections */
+  section { padding: 7rem 0; }
+  .section-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--terracota);
+    margin-bottom: 1.5rem; display: block;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.04em; color: var(--indigo);
+    margin-bottom: 1.5rem; max-width: 900px;
+  }
+  .section-title em {
+    font-style: normal; color: var(--terracota);
+    position: relative; display: inline-block;
+  }
+  .section-title em::after {
+    content: ''; position: absolute;
+    left: 0; right: 0; bottom: 0.05em;
+    height: 0.25em; background: var(--terracota);
+    opacity: 0.15; z-index: -1;
+  }
+  .section-lead {
+    font-size: 1.15rem; color: var(--slate);
+    max-width: 720px; margin-bottom: 4rem;
+  }
+
+  /* Filosofia */
+  .philosophy { background: var(--white); }
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem 3rem;
+    margin-top: 4rem;
+  }
+  .philosophy-item {
+    border-top: 1px solid var(--line);
+    padding-top: 1.75rem;
+  }
+  .philosophy-item .icon {
+    width: 28px; height: 28px;
+    color: var(--indigo);
+    margin-bottom: 1.25rem;
+  }
+  .philosophy-item h3 {
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--indigo); margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .philosophy-item p { font-size: 0.92rem; color: var(--slate); }
+
+  /* Timeline */
+  .timeline { background: var(--beige); }
+  .phases {
+    margin-top: 4rem;
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--line);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .phase {
+    background: var(--beige);
+    padding: 3rem 0;
+    display: grid;
+    grid-template-columns: 180px 1fr 2fr;
+    gap: 3rem;
+    align-items: start;
+    transition: background 0.3s;
+  }
+  .phase:hover { background: #ede7d5; }
+  .phase-week {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    font-weight: 600;
+    padding-top: 0.4rem;
+  }
+  .phase-week strong {
+    display: block;
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--indigo);
+    margin-top: 0.4rem;
+    line-height: 1;
+  }
+  .phase-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--indigo);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .phase-title-sub {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--slate);
+    margin-top: 0.5rem;
+    letter-spacing: 0;
+  }
+  .phase-content p {
+    font-size: 0.98rem;
+    color: var(--slate);
+    margin-bottom: 1.25rem;
+  }
+  .phase-content ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.5rem;
+  }
+  .phase-content li {
+    font-size: 0.88rem;
+    color: var(--indigo);
+    display: flex; gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .phase-content li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    margin-top: 0.55rem;
+    border-radius: 50%;
+    background: var(--terracota);
+  }
+
+  @media (max-width: 900px) {
+    .phase { grid-template-columns: 1fr; gap: 1.25rem; padding: 2.5rem 0; }
+    .phase-week strong { font-size: 2.25rem; }
+    .phase-content ul { grid-template-columns: 1fr; }
+  }
+
+  /* Follow-up */
+  .followup { background: var(--white); }
+  .checkpoints {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .checkpoint {
+    padding: 2.5rem;
+    background: #fafaf7;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .checkpoint:hover {
+    border-color: var(--terracota);
+    transform: translateY(-4px);
+  }
+  .checkpoint-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .checkpoint-day {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--indigo);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .checkpoint-day span { font-size: 1.2rem; font-weight: 500; color: var(--slate); margin-left: 0.25rem; }
+  .checkpoint h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .checkpoint p { font-size: 0.9rem; color: var(--slate); line-height: 1.6; }
+  @media (max-width: 900px) { .checkpoints { grid-template-columns: 1fr; } }
+
+  /* Objection handling */
+  .objections { background: var(--beige); }
+  .obj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+  .obj-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .obj-item {
+    padding: 1.75rem 2rem;
+    background: var(--white);
+    border-left: 3px solid var(--terracota);
+  }
+  .obj-item .q {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .obj-item h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .obj-item p { font-size: 0.92rem; color: var(--slate); line-height: 1.6; }
+
+  .promise-box {
+    padding: 3rem;
+    background: var(--indigo);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .promise-box::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -30%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(196,112,74,0.3) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  .promise-box > * { position: relative; }
+  .promise-box .tag {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--terracota);
+    font-weight: 600; margin-bottom: 1.25rem; display: block;
+  }
+  .promise-box h3 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  .promise-box p {
+    font-size: 0.98rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2rem;
+  }
+  .promise-box ul {
+    list-style: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 1.5rem;
+  }
+  .promise-box ul li {
+    padding: 0.75rem 0;
+    font-size: 0.92rem;
+    display: flex; gap: 0.75rem;
+    color: rgba(255,255,255,0.9);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .promise-box ul li:last-child { border-bottom: none; }
+  .promise-box ul li::before { content: '→'; color: var(--terracota); font-weight: 700; }
+  @media (max-width: 900px) { .obj-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  /* Final */
+  .final {
+    background: var(--indigo); color: var(--white);
+    text-align: center; padding: 8rem 0;
+    position: relative; overflow: hidden;
+  }
+  .final::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(196,112,74,0.2) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+    animation: blobFloat 15s ease-in-out infinite;
+  }
+  .final > .container { position: relative; z-index: 1; }
+  .final h2 {
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    font-weight: 800; line-height: 1.02;
+    letter-spacing: -0.04em; margin-bottom: 1.5rem;
+  }
+  .final h2 em {
+    font-style: normal;
+    background: linear-gradient(110deg, var(--terracota) 0%, var(--terracota-light) 50%, var(--terracota) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
+  }
+  .final p {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 640px; margin: 0 auto 3rem;
+  }
+  .final-btn {
+    display: inline-block;
+    padding: 1.35rem 3.5rem;
+    background: linear-gradient(135deg, var(--terracota) 0%, var(--terracota-light) 100%);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border-radius: 100px;
+    transition: all 0.4s;
+    box-shadow: 0 12px 32px rgba(196,112,74,0.35);
+    position: relative; overflow: hidden;
+  }
+  .final-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .final-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(196,112,74,0.5); }
+  .final-btn:hover::before { transform: translateX(100%); }
+
+  footer {
+    background: var(--black); color: rgba(255,255,255,0.6);
+    padding: 3rem 0; text-align: center; font-size: 0.85rem;
+  }
+  footer .logo { display: flex; justify-content: center; margin-bottom: 1rem; }
+
+  @media (max-width: 768px) {
+    section { padding: 4.5rem 0; }
+    .hero { padding: 4rem 0; }
+    .hero-promises { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="logo"><img src="images/feez-preto.png" alt="feez!" /></div>
+    <div class="topbar-tag">Playbook Interno · Ativação 7 Dias</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container hero-content">
+    <span class="eyebrow">Uso interno · SDR de ativação</span>
+    <h1>Playbook dos <em>7 dias de trial.</em></h1>
+    <p class="hero-sub">
+      Roteiro escalável para 1 SDR atender múltiplas clínicas por dia sem perder qualidade. O cliente já entrou sabendo o preço —
+      o jogo aqui não é vender, é <strong>remover fricção até ele ativar sozinho</strong>.
+    </p>
+    <div class="hero-promises">
+      <div><strong>1 SDR</strong><span>N clínicas simultâneas</span></div>
+      <div><strong>2 calls</strong><span>Ao vivo por cliente</span></div>
+      <div><strong>≥70%</strong><span>Meta de ativação</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Filosofia -->
+<section class="philosophy">
+  <div class="container">
+    <span class="section-eyebrow">Princípios do SDR</span>
+    <h2 class="section-title">Escalar <em>sem parecer robô.</em></h2>
+    <p class="section-lead">
+      Com muitos clientes ao mesmo tempo, a única forma de manter qualidade é: templates humanos, calls cirúrgicas e priorização por sinais.
+      O cliente nunca pode sentir que está numa esteira — mesmo estando.
+    </p>
+    <div class="philosophy-grid">
+      <div class="philosophy-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+        <h3>Template humano</h3>
+        <p>Mensagens-base pré-aprovadas com espaço para o nome, a dor e o contexto. Personaliza só o essencial — mas sempre personaliza.</p>
+      </div>
+      <div class="philosophy-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+        <h3>Priorização por sinais</h3>
+        <p>Todo dia de manhã, o SDR olha o painel: quem está frio, quem está travado, quem já ativou. O tempo vai para quem mais move o ponteiro.</p>
+      </div>
+      <div class="philosophy-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path d="M23 7l-7 5 7 5V7zM1 5h15v14H1z"/></svg>
+        <h3>Async primeiro, call depois</h3>
+        <p>Vídeo de 2 min resolve 80% das dúvidas. Call ao vivo só em momentos-chave: kickoff (D1) e ativação (D7).</p>
+      </div>
+      <div class="philosophy-item">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <h3>Treinamento em grupo</h3>
+        <p>Webinar recorrente 2x por semana (terça e quinta). Todos os clientes em trial caem nele. Dúvida específica vira WhatsApp depois.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline">
+  <div class="container">
+    <span class="section-eyebrow">Linha do tempo · 7 dias</span>
+    <h2 class="section-title">Do cadastro <em>à ativação</em> em uma semana.</h2>
+    <p class="section-lead">
+      Cada dia tem um toque esperado. Ao vivo só no D1 e no D7. Os outros cinco dias são <strong>assíncronos</strong>:
+      WhatsApp templado, vídeos curtos, webinar em grupo e monitoramento por sinais.
+    </p>
+
+    <div class="phases">
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>01</strong></div>
+        <div>
+          <div class="phase-title">Boas-vindas & Kickoff<span class="phase-title-sub">Call ao vivo · 20 min · única call obrigatória no início</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> criar vínculo, entender a dor mais cara e deixar o cliente sabendo exatamente o que acontece nos próximos 6 dias. Essa é a única call da semana — precisa ser afiada.</p>
+          <ul>
+            <li>Mensagem de boas-vindas (template + nome)</li>
+            <li>Link de agendamento automático (Calendly)</li>
+            <li>Call de kickoff de 20 min</li>
+            <li>Diagnóstico rápido: dor, volume, equipe</li>
+            <li>Inscrição no webinar de treinamento</li>
+            <li>Envio do "roteiro dos 7 dias" por WhatsApp</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>02</strong></div>
+        <div>
+          <div class="phase-title">Setup Express<span class="phase-title-sub">Assíncrono · vídeo guiado + WhatsApp</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> o cliente configura a cara da clínica sozinho, com vídeo de 3 min e um checklist. O SDR só acompanha pelo painel e intervém se travou.</p>
+          <ul>
+            <li>Mensagem templada: "bom dia, primeiro passo"</li>
+            <li>Vídeo curto: cadastro de serviços e agenda</li>
+            <li>Checklist interativo dentro do app</li>
+            <li>Monitoramento de progresso (painel SDR)</li>
+            <li>Intervenção só se checklist < 40%</li>
+            <li>Sinal esperado: agenda e serviços preenchidos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>03</strong></div>
+        <div>
+          <div class="phase-title">Migração de Pacientes<span class="phase-title-sub">Assíncrono · time de dados assume</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> receber a base atual e importar pelo time de dados, não pelo SDR. O SDR só coordena e comunica o cliente quando está pronto.</p>
+          <ul>
+            <li>Template: "me manda sua base atual"</li>
+            <li>Aceitação flexível: Excel, CSV, print</li>
+            <li>Importação feita pelo time de dados (SLA 24h)</li>
+            <li>Mensagem de confirmação automática</li>
+            <li>Cliente valida 3 pacientes ao acaso</li>
+            <li>Sinal esperado: base com dados reais</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>04</strong></div>
+        <div>
+          <div class="phase-title">Webinar de Treinamento<span class="phase-title-sub">Em grupo · terça ou quinta · 45 min</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> treinar a equipe da clínica em grupo junto com outros clientes em trial. Escala brutal: 1 SDR, N clínicas, mesma aula.</p>
+          <ul>
+            <li>Webinar recorrente (terça e quinta, 15h)</li>
+            <li>Recepção: agendar, remarcar, confirmar</li>
+            <li>Profissional: prontuário e assinatura</li>
+            <li>Dono: dashboard e financeiro</li>
+            <li>Gravação enviada para quem não foi</li>
+            <li>Sinal esperado: presença da equipe</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>05</strong></div>
+        <div>
+          <div class="phase-title">Check-in por Sinal<span class="phase-title-sub">Assíncrono · priorização</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> SDR abre o painel de manhã, separa clientes em 3 baldes — verde, amarelo, vermelho — e foca o tempo em quem está parado.</p>
+          <ul>
+            <li>Painel de sinais do trial (login, dados, uso)</li>
+            <li>Verde: mensagem de incentivo (1 linha)</li>
+            <li>Amarelo: áudio de WhatsApp de 1 min</li>
+            <li>Vermelho: ligação direta, diagnóstico</li>
+            <li>Registro do motivo do bloqueio (se houver)</li>
+            <li>Sinal esperado: nenhum cliente em vermelho</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>06</strong></div>
+        <div>
+          <div class="phase-title">Primeiro Dia Real<span class="phase-title-sub">Assíncrono · SDR de plantão no WhatsApp</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> o cliente opera o dia inteiro no feez!. SDR de plantão no WhatsApp, sem call agendada — só reagindo ao que aparecer.</p>
+          <ul>
+            <li>Bom dia templado: "hoje é o dia"</li>
+            <li>Monitoramento do uso em tempo real</li>
+            <li>Resposta rápida no WhatsApp (SLA 15 min)</li>
+            <li>Mensagem celebrando o 1º agendamento real</li>
+            <li>Check-out no fim do dia (template)</li>
+            <li>Sinal esperado: 1 dia operado completo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-week">Dia<strong>07</strong></div>
+        <div>
+          <div class="phase-title">Ativação do Plano<span class="phase-title-sub">Call ao vivo · 15 min · última call</span></div>
+        </div>
+        <div class="phase-content">
+          <p><strong>Objetivo:</strong> o cliente já sabe o preço desde o primeiro dia. Essa call não é venda — é <strong>remover fricção</strong>: tirar dúvida fiscal, enviar link de pagamento, confirmar qual plano e desbloquear a continuidade.</p>
+          <ul>
+            <li>Call de ativação de 15 min</li>
+            <li>Resumo do que foi feito na semana</li>
+            <li>Confirmar qual plano (Pré-formado ou Empresarial)</li>
+            <li>Envio do link de pagamento direto</li>
+            <li>Tirar dúvidas de nota fiscal e ciclo</li>
+            <li>Se não ativar hoje: follow-up D+2 e D+5</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- KPIs de saúde do trial -->
+<section class="followup">
+  <div class="container">
+    <span class="section-eyebrow">Sinais vitais do trial</span>
+    <h2 class="section-title">Se acender amarelo, <em>intervenha.</em></h2>
+    <p class="section-lead">
+      O time monitora três indicadores ao longo dos 7 dias. Qualquer um abaixo do mínimo aciona ligação do CS sênior no mesmo dia.
+    </p>
+    <div class="checkpoints">
+      <div class="checkpoint">
+        <div class="checkpoint-tag">Sinal 01 · Engajamento</div>
+        <div class="checkpoint-day">3<span>logins mínimos</span></div>
+        <h3>Uso real, não visita</h3>
+        <p>Se até o D3 o cliente não fez 3 logins ativos, o sistema ainda é estranho. Ação: ligar, descobrir o bloqueio, remarcar treinamento.</p>
+      </div>
+      <div class="checkpoint">
+        <div class="checkpoint-tag">Sinal 02 · Dados</div>
+        <div class="checkpoint-day">10<span>pacientes cadastrados</span></div>
+        <h3>Mão na massa</h3>
+        <p>Até o D5 a base precisa ter pacientes reais, não demo. Sem dados próprios, não existe apego emocional ao sistema.</p>
+      </div>
+      <div class="checkpoint">
+        <div class="checkpoint-tag">Sinal 03 · Rotina</div>
+        <div class="checkpoint-day">1<span>dia operado 100%</span></div>
+        <h3>Um dia inteiro no ar</h3>
+        <p>Até o D6 a clínica precisa ter operado um dia completo pelo feez!. Sem isso, a conversão em D7 fica frágil. Ação: oferecer suporte ao vivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Objeções + Scripts -->
+<section class="objections">
+  <div class="container">
+    <span class="section-eyebrow">Manual de objeções</span>
+    <h2 class="section-title">O que o cliente diz <em>e como responder.</em></h2>
+
+    <div class="obj-grid">
+      <div class="obj-list">
+        <div class="obj-item">
+          <div class="q">Objeção 01 · Tempo</div>
+          <h4>"Não tenho tempo de aprender agora."</h4>
+          <p>"Justamente por isso o trial é 90% assíncrono. Você tem um webinar de 45 min e uns 3 vídeos curtos. O resto é WhatsApp quando bater dúvida. Te mando o link agora?"</p>
+        </div>
+        <div class="obj-item">
+          <div class="q">Objeção 02 · Medo</div>
+          <h4>"Já tentei outro sistema e deu errado."</h4>
+          <p>Validar primeiro: "Faz total sentido. O que deu errado na outra vez?" Escutar. Depois: "O que a gente faz diferente é [ponto específico]". Nunca entra em comparação genérica.</p>
+        </div>
+        <div class="obj-item">
+          <div class="q">Objeção 03 · Decisão</div>
+          <h4>"Preciso falar com meu sócio."</h4>
+          <p>"Perfeito. Quer que eu mande um resumo dos 7 dias pronto pra ele ler em 2 minutos? Ou prefere que eu entre numa call de 15 min com vocês dois?" Sempre dá caminho.</p>
+        </div>
+        <div class="obj-item">
+          <div class="q">Objeção 04 · Dados</div>
+          <h4>"Como fica minha base atual?"</h4>
+          <p>"A gente importa por você. Me manda o arquivo ou print do que você usa hoje que o time de dados cuida em 24h. Você valida 3 pacientes ao acaso e pronto."</p>
+        </div>
+      </div>
+
+      <div class="promise-box">
+        <span class="tag">Rotina diária do SDR</span>
+        <h3>Como 1 SDR segura 10, 20, 30 clínicas por semana sem perder o fio.</h3>
+        <p>
+          A chave é ter uma rotina repetível. Todo dia, o SDR executa esses 5 blocos — o resto do tempo é livre para quem estiver em vermelho.
+        </p>
+        <ul>
+          <li>09h — Triagem do painel (verde/amarelo/vermelho)</li>
+          <li>09h30 — Envio dos templates do dia por cohort</li>
+          <li>11h — Calls de kickoff (novos clientes D1)</li>
+          <li>14h — Calls de ativação (clientes em D7)</li>
+          <li>16h — Foco nos vermelhos + registro no CRM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
+    <h2>Disciplina no processo.<br/><em>Paciência no cliente.</em></h2>
+    <p>
+      Este playbook é vivo. Cada trial perdido vira aprendizado; cada cliente convertido vira caso.
+      Se você está lendo isso, você é o feez! para aquela clínica. Faça valer.
+    </p>
+    <a href="https://wa.me/5541998107937?text=Ol%C3%A1%2C%20tenho%20d%C3%BAvida%20sobre%20o%20playbook%20de%20ativa%C3%A7%C3%A3o" class="final-btn">Falar com o líder de CS →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo"><img src="images/feez-branco.png" alt="feez!" /></div>
+    <p>Organiza a operação da sua clínica · © 2026 feez!</p>
+  </div>
+</footer>
+
+</body>
+</html>
